@@ -1,0 +1,62 @@
+<html>
+
+<head>
+    <title>Resume Submission Form</title>
+    <style>
+        body {
+            /* css for the form */
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            width: 280px;
+            text-align: center;
+        }
+
+        input,
+        textarea,
+        button {
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Resume Submission Form</h2> <!-- heading  -->
+        <input type="text" id="name" placeholder="Your name">
+        <input type="email" id="email" placeholder="Your email">
+        <input type="tel" id="phone" placeholder="Your phone number">
+        <input type="number" id="age" placeholder="Your age">
+        <textarea id="bio" rows="4" placeholder="Write a brief bio or cover letter..."></textarea>
+        <button onclick="displayResult()">Submit</button> <!-- Button  -->
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function displayResult() {
+            const fields = ['name', 'email', 'phone', 'age', 'bio'].map(id => document.getElementById(id).value.trim());
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = fields.every(field => field) ?
+                `Name: ${fields[0]}<br>Email: ${fields[1]}<br>Phone: ${fields[2]}<br>Age: ${fields[3]}<br>Bio: ${fields[4]}` :
+                'Please fill out all fields.';
+        }
+    </script>
+</body>
+
+</html>
