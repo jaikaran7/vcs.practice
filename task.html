@@ -1,0 +1,54 @@
+<html>
+<head>
+    <title>Tasks for the Day</title>
+    <!-- the Required css -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: aqua;
+        }
+        input,
+        button {
+            margin: 5px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        ul {
+            padding: 0;
+            list-style: none;
+        }
+        /* To show the task in a list elements */
+        li {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+        .completed {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tasks for the Day</h1> <!-- heading  -->
+        <input type="text" id="taskInput" placeholder="Add today's task">
+        <button onclick="addTask()">Add Task</button> <!-- For the submit button  -->
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        function addTask() {
+            const taskText = taskInput.value.trim();
+            if (taskText) {
+                taskList.innerHTML += `<li><span onclick="this.classList.toggle('completed')">${taskText}</span>
+                <button onclick="this.parentElement.remove()">Remove</button></li>`;
+                taskInput.value = ''; // Clear input after adding task
+            }
+        }
+    </script>
+</body>
+
+</html>
