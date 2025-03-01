@@ -1,14 +1,17 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resume Submission Form</title>
     <style>
         body {
-            /* css for the form */
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             display: flex;
             justify-content: center;
+            align-items: center;
             height: 100vh;
             margin: 0;
         }
@@ -16,10 +19,15 @@
         .form-container {
             width: 280px;
             text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
 
         input,
         textarea,
+        select,
         button {
             width: 100%;
             margin: 8px 0;
@@ -31,30 +39,67 @@
         button {
             background-color: #4CAF50;
             color: white;
+        }
 
+        #profilePic {
+            margin-top: 10px;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
         }
     </style>
 </head>
 
 <body>
     <div class="form-container">
-        <h2>Resume Submission Form</h2> <!-- heading  -->
+        <h2>Resume Submission Form</h2>
         <input type="text" id="name" placeholder="Your name">
         <input type="email" id="email" placeholder="Your email">
         <input type="tel" id="phone" placeholder="Your phone number">
         <input type="number" id="age" placeholder="Your age">
-        <textarea id="bio" rows="4" placeholder="Write a brief bio or cover letter..."></textarea>
-        <button onclick="displayResult()">Submit</button> <!-- Button  -->
+        <textarea id="bio" rows="4" placeholder="Write a brief bio..."></textarea>
+        <select id="education">
+            <option value="">Select Education</option>
+            <option value="Undergraduate">Undergraduate</option>
+            <option value="Postgraduate">Postgraduate</option>
+            <option value="+2">+2</option>
+        </select>
+        <select id="employment">
+            <option value="">Looking for:</option>
+            <option value="Full-time job">Full-time job</option>
+            <option value="Internship">Internship</option>
+        </select>
+        <input type="text" id="skills" placeholder="Skills (comma separated)">
+        <input type="text" id="hobbies" placeholder="Hobbies (comma separated)">
+        <input type="file" id="fiaFile" accept="image/jpeg, image/png">
+        <button onclick="displayResult()">Submit</button>
         <div id="result"></div>
     </div>
 
     <script>
         function displayResult() {
-            const fields = ['name', 'email', 'phone', 'age', 'bio'].map(id => document.getElementById(id).value.trim());
-            const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = fields.every(field => field) ?
-                `Name: ${fields[0]}<br>Email: ${fields[1]}<br>Phone: ${fields[2]}<br>Age: ${fields[3]}<br>Bio: ${fields[4]}` :
-                'Please fill out all fields.';
+            const profilePic = document.createElement('img');
+            const file = document.getElementById('fiaFile').files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    profilePic.src = e.target.result;
+                    profilePic.id = "profilePic";
+                    document.getElementById('result').innerHTML = `
+                        ${profilePic.outerHTML}
+                        <strong>Name:</strong> ${document.getElementById('name').value}<br>
+                        <strong>Email:</strong> ${document.getElementById('email').value}<br>
+                        <strong>Phone:</strong> ${document.getElementById('phone').value}<br>
+                        <strong>Age:</strong> ${document.getElementById('age').value}<br>
+                        <strong>Bio:</strong> ${document.getElementById('bio').value}<br>
+                        <strong>Education:</strong> ${document.getElementById('education').value}<br>
+                        <strong>Looking for:</strong> ${document.getElementById('employment').value}<br>
+                        <strong>Skills:</strong> ${document.getElementById('skills').value}<br>
+                        <strong>Hobbies:</strong> ${document.getElementById('hobbies').value}<br>`;
+                };
+                reader.readAsDataURL(file);
+            }
         }
     </script>
 </body>
