@@ -1,0 +1,162 @@
+<head>
+    <title>Office Entry Times</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .employee {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: move;
+            margin-bottom: 10px;
+        }
+
+        .intern {
+            background-color: #d4edda;
+        }
+
+        .full-time {
+            background-color: #f8d7da;
+        }
+
+        select,
+        input,
+        button {
+            padding: 8px;
+            margin-top: 10px;
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Office Entry Times</h1>
+
+        <input id="name" placeholder="Employee Name">
+        <input id="time" type="time">
+        <select id="type">
+            <option value="intern">Intern</option>
+            <option value="full-time">Full-time</option>
+        </select>
+        <button onclick="addEmployee()">LOGIN</button>
+
+        <select id="filter" onchange="filterEmployees()">
+            <option value="all">All</option>
+            <option value="time">By Time</option>
+            <option value="type">By Employee Type (Full-time First)</option>
+        </select>
+
+        <div id="employee-list"></div>
+    </div>
+
+    <script>
+        let employees = [];
+        let editingIndex = -1;  // Track which employee is being edited
+
+        function addEmployee() {
+            const name = document.getElementById('name').value;
+            const time = document.getElementById('time').value;
+            const type = document.getElementById('type').value;
+
+            if (editingIndex === -1) {
+                // Add new employee
+                employees.push({ name, time, type });
+            } else {
+                // Update existing employee
+                employees[editingIndex] = { name, time, type };
+                editingIndex = -1;
+                document.querySelector('button').innerText = "LOGIN";  // Reset button text
+            }
+
+            displayEmployees();
+            clearForm();
+        }
+
+        function clearForm() {
+            document.getElementById('name').value = '';
+            document.getElementById('time').value = '';
+            document.getElementById('type').value = 'intern';
+        }
+
+        function displayEmployees() {
+            const employeeList = document.getElementById('employee-list');
+            employeeList.innerHTML = employees.map((employee, index) =>
+                `<div class="employee ${employee.type}" draggable="true" ondragstart="dragStart(event, ${index})" ondrop="drop(event, ${index})" ondragover="event.preventDefault()">
+          <span>${employee.name}</span><span>${employee.time}</span>
+          <div>
+            <button onclick="editEmployee(${index})">Edit</button>
+          </div>
+        </div>`
+            ).join('');
+        }
+
+        function editEmployee(index) {
+            const employee = employees[index];
+            document.getElementById('name').value = employee.name;
+            document.getElementById('time').value = employee.time;
+            document.getElementById('type').value = employee.type;
+
+            editingIndex = index;  // Set the index of the employee being edited
+            document.querySelector('button').innerText = "Update login";  // Change button text to "Update"
+        }
+
+        function filterEmployees() {
+            const filterValue = document.getElementById('filter').value;
+
+            if (filterValue === "time") {
+                employees.sort((a, b) => a.time.localeCompare(b.time));  // Sort by entry time
+            } else if (filterValue === "type") {
+                employees.sort((a, b) => {
+                    if (a.type === b.type) return 0;  // Same type, keep order
+                    return a.type === 'full-time' ? -1 : 1;  // Full-time first
+                });
+            }
+
+            displayEmployees();  // Re-display the sorted employees
+        }
+
+        let draggedIndex = null;
+
+        function dragStart(event, index) {
+            draggedIndex = index;
+        }
+
+        function drop(event, dropIndex) {
+            const draggedEmployee = employees.splice(draggedIndex, 1)[0];
+            employees.splice(dropIndex, 0, draggedEmployee);
+            displayEmployees();
+        }
+    </script>
+
+</body>
+
+</html>
