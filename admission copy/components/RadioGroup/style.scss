@@ -1,0 +1,146 @@
+// RadioGroup Component Styles
+.radio-group-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  
+  .radio-group__label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #495057;
+    font-size: 14px;
+    
+    .radio-group__required {
+      color: #dc3545;
+      font-weight: bold;
+      margin-left: 2px;
+    }
+  }
+  
+  .radio-group {
+    display: flex;
+    gap: 16px;
+    
+    &--vertical {
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    &--horizontal {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    &--error {
+      .radio-group__input:checked + .radio-group__label-text {
+        color: #dc3545;
+      }
+    }
+  }
+  
+  .radio-group__option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #495057;
+    transition: color 0.2s ease;
+    
+    &:hover {
+      color: #667eea;
+    }
+  }
+  
+  .radio-group__input {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #667eea;
+    
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+    
+    &:focus {
+      outline: 2px solid #667eea;
+      outline-offset: 2px;
+    }
+  }
+  
+  .radio-group__label-text {
+    user-select: none;
+    font-weight: 400;
+  }
+  
+  .radio-group__error {
+    display: block;
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .radio-group-wrapper {
+    margin-bottom: 14px;
+    
+    .radio-group__label {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    
+    .radio-group {
+      gap: 12px;
+      
+      &--horizontal {
+        gap: 16px;
+      }
+    }
+    
+    .radio-group__option {
+      font-size: 13px;
+    }
+    
+    .radio-group__input {
+      width: 14px;
+      height: 14px;
+      margin-right: 6px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .radio-group-wrapper {
+    margin-bottom: 12px;
+    
+    .radio-group__label {
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+    
+    .radio-group {
+      gap: 10px;
+      
+      &--horizontal {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+    
+    .radio-group__option {
+      font-size: 12px;
+    }
+    
+    .radio-group__input {
+      width: 12px;
+      height: 12px;
+      margin-right: 5px;
+    }
+  }
+}

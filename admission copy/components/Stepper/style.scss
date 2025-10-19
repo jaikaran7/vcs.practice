@@ -1,0 +1,151 @@
+// Stepper Component Styles
+.stepper {
+  margin-bottom: 24px;
+  
+  &__steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 0 20px;
+  }
+  
+  &__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1;
+    z-index: 2;
+    
+    &--pending {
+      .stepper__step-icon {
+        background: #e9ecef;
+        color: #6c757d;
+        border: 2px solid #e9ecef;
+      }
+      
+      .stepper__step-title {
+        color: #6c757d;
+      }
+    }
+    
+    &--active {
+      .stepper__step-icon {
+        background: #dc3545;
+        color: white;
+        border: 2px solid #dc3545;
+        box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.2);
+      }
+      
+      .stepper__step-title {
+        color: #dc3545;
+        font-weight: 600;
+      }
+    }
+    
+    &--completed {
+      .stepper__step-icon {
+        background: #28a745;
+        color: white;
+        border: 2px solid #28a745;
+      }
+      
+      .stepper__step-title {
+        color: #28a745;
+        font-weight: 500;
+      }
+    }
+  }
+  
+  &__step-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 3;
+  }
+  
+  &__step-title {
+    font-size: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    line-height: 1.2;
+    max-width: 100px;
+    word-wrap: break-word;
+  }
+  
+  &__connector {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: #e9ecef;
+    z-index: 1;
+    transform: translateX(50%);
+    transition: background-color 0.3s ease;
+    
+    &--completed {
+      background: #28a745;
+    }
+    
+    &--pending {
+      background: #e9ecef;
+    }
+  }
+  
+  // Responsive design
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+    
+    &__steps {
+      padding: 0 10px;
+    }
+    
+    &__step-icon {
+      width: 32px;
+      height: 32px;
+      font-size: 14px;
+    }
+    
+    &__step-title {
+      font-size: 10px;
+      max-width: 80px;
+    }
+    
+    &__connector {
+      top: 16px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    margin-bottom: 16px;
+    
+    &__steps {
+      padding: 0 5px;
+    }
+    
+    &__step-icon {
+      width: 28px;
+      height: 28px;
+      font-size: 12px;
+    }
+    
+    &__step-title {
+      font-size: 9px;
+      max-width: 60px;
+    }
+    
+    &__connector {
+      top: 14px;
+    }
+  }
+}

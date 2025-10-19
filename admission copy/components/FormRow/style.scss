@@ -1,0 +1,64 @@
+// FormRow Component Styles
+.form-row {
+  display: grid;
+  gap: var(--form-row-gap, 20px);
+  margin-bottom: 16px;
+  
+  // Column variants
+  &--1col {
+    grid-template-columns: 1fr;
+  }
+  
+  &--2col {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  &--3col {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  
+  &--4col {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  
+  // Responsive behavior
+  &--responsive {
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    
+    @media (max-width: 480px) {
+      gap: 12px;
+    }
+  }
+  
+  // Direct children styling
+  > * {
+    min-width: 0; // Prevent grid overflow
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .form-row {
+    margin-bottom: 14px;
+    
+    &--3col,
+    &--4col {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .form-row {
+    margin-bottom: 12px;
+    
+    &--2col,
+    &--3col,
+    &--4col {
+      grid-template-columns: 1fr;
+    }
+  }
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Admission Application</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+        }
+        
+        .preview-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 16px;
+            text-align: center;
+            color: #856404;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-notice">
+        🚀 Preview Mode - Student Admission Application
+    </div>
+    <div id="root"></div>
+    
+    <!-- React CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Your Application Script -->
+    <script type="text/babel">
+        // Import your components here
+        // For now, let's create a simple preview
+        const { useState } = React;
+        
+        function App() {
+            const [currentStep, setCurrentStep] = useState(1);
+            
+            const steps = [
+                'Student Information',
+                'Academic Information', 
+                'Guardian Information',
+                'Address Information',
+                'Fee & Documents',
+                'Review & Submit'
+            ];
+            
+            return (
+                <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
+                    <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>
+                        Student Admission Application
+                    </h1>
+                    
+                    <div style={{ 
+                        background: 'white', 
+                        padding: '20px', 
+                        borderRadius: '12px',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                        marginBottom: '20px'
+                    }}>
+                        <h2>Application Preview</h2>
+                        <p>This is a preview of your admission application system.</p>
+                        
+                        <div style={{ marginTop: '20px' }}>
+                            <h3>Available Steps:</h3>
+                            <ul>
+                                {steps.map((step, index) => (
+                                    <li key={index} style={{ 
+                                        padding: '8px 0',
+                                        color: index + 1 === currentStep ? '#dc3545' : '#6c757d'
+                                    }}>
+                                        {index + 1}. {step}
+                                        {index + 1 === currentStep && ' (Current)'}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        
+                        <div style={{ marginTop: '20px' }}>
+                            <button 
+                                onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
+                                style={{
+                                    padding: '10px 20px',
+                                    marginRight: '10px',
+                                    background: '#6c757d',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '6px',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                Previous
+                            </button>
+                            <button 
+                                onClick={() => setCurrentStep(Math.min(6, currentStep + 1))}
+                                style={{
+                                    padding: '10px 20px',
+                                    background: '#dc3545',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '6px',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div style={{ 
+                        background: '#d4edda', 
+                        padding: '16px', 
+                        borderRadius: '8px',
+                        border: '1px solid #c3e6cb'
+                    }}>
+                        <h4 style={{ margin: '0 0 10px 0', color: '#155724' }}>
+                            📋 To run your full application:
+                        </h4>
+                        <ol style={{ margin: '0', color: '#155724' }}>
+                            <li>Set up a React development environment</li>
+                            <li>Install dependencies: <code>npm install</code></li>
+                            <li>Start development server: <code>npm start</code></li>
+                            <li>Or use a bundler like Vite or Webpack</li>
+                        </ol>
+                    </div>
+                </div>
+            );
+        }
+        
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
